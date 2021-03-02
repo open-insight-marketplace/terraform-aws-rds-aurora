@@ -51,9 +51,9 @@ resource "aws_rds_cluster" "this" {
   final_snapshot_identifier           = "${var.final_snapshot_identifier_prefix}-${var.name}-${element(concat(random_id.snapshot_identifier.*.hex, [""]), 0)}"
   skip_final_snapshot                 = var.skip_final_snapshot
   deletion_protection                 = var.deletion_protection
-  backup_retention_period             = var.backup_retention_period
-  preferred_backup_window             = var.preferred_backup_window
-  preferred_maintenance_window        = var.preferred_maintenance_window
+  //  backup_retention_period             = var.backup_retention_period
+  //  preferred_backup_window             = var.preferred_backup_window
+  //  preferred_maintenance_window        = var.preferred_maintenance_window
   port                                = local.port
   db_subnet_group_name                = local.db_subnet_group_name
   vpc_security_group_ids              = compact(concat(aws_security_group.this.*.id, var.vpc_security_group_ids))
@@ -105,7 +105,7 @@ resource "aws_rds_cluster_instance" "this" {
   publicly_accessible             = length(var.instances_parameters) > count.index ? lookup(var.instances_parameters[count.index], "publicly_accessible", var.publicly_accessible) : var.publicly_accessible
   db_subnet_group_name            = local.db_subnet_group_name
   db_parameter_group_name         = var.db_parameter_group_name
-  preferred_maintenance_window    = var.preferred_maintenance_window
+  //  preferred_maintenance_window    = var.preferred_maintenance_window
   apply_immediately               = var.apply_immediately
   monitoring_role_arn             = local.rds_enhanced_monitoring_arn
   monitoring_interval             = var.monitoring_interval
